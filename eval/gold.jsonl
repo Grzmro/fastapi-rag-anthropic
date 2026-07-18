@@ -1,0 +1,12 @@
+{"id": "q1", "question": "What is the largest volcano in the Solar System?", "expected_source": "solar_system.md", "expected_answer_contains": ["Olympus Mons"], "should_refuse": false}
+{"id": "q2", "question": "How much can a remote employee claim per year for home-office equipment?", "expected_source": "remote_work_policy.md", "expected_answer_contains": ["500"], "should_refuse": false}
+{"id": "q3", "question": "Who created Python and in what year?", "expected_source": "python_language.md", "expected_answer_contains": ["Guido van Rossum", "1991"], "should_refuse": false}
+{"id": "q4", "question": "What water temperature is recommended for brewing coffee?", "expected_source": "coffee_brewing.md", "expected_answer_contains": ["90", "96"], "should_refuse": false}
+{"id": "q5", "question": "Are contractors eligible to work remotely at Acme Corp?", "expected_source": "remote_work_policy.md", "expected_answer_contains": ["contractor"], "should_refuse": false}
+{"id": "q6", "question": "When did Python 2 reach end of life?", "expected_source": "python_language.md", "expected_answer_contains": ["2020"], "should_refuse": false}
+{"id": "q7", "question": "What grind size is used for espresso?", "expected_source": "coffee_brewing.md", "expected_answer_contains": ["fine"], "should_refuse": false}
+{"id": "q8", "question": "Which planet has the strongest winds?", "expected_source": "solar_system.md", "expected_answer_contains": ["Neptune"], "should_refuse": false}
+{"id": "t1", "question": "What is the capital of Australia?", "expected_source": null, "expected_answer_contains": [], "should_refuse": true}
+{"id": "t2", "question": "What is Acme Corp's parental leave policy?", "expected_source": null, "expected_answer_contains": [], "should_refuse": true}
+{"id": "t3", "question": "How much caffeine is in a cup of coffee?", "expected_source": null, "expected_answer_contains": [], "should_refuse": true}
+{"id": "t4", "question": "What programming language did Guido van Rossum create before Python?", "expected_source": null, "expected_answer_contains": [], "should_refuse": true}

@@ -13,6 +13,18 @@ class DocumentsResponse(BaseModel):
     total_chunks: int
 
 
+class DriveIngestRequest(BaseModel):
+    folder_id: str = Field(
+        min_length=1,
+        description="Google Drive folder ID (the part after /folders/ in the folder URL)",
+    )
+
+
+class DriveIngestResponse(BaseModel):
+    ingested: list[IngestResponse]
+    skipped: list[str] = Field(description="Files with unsupported types, left out")
+
+
 class AskRequest(BaseModel):
     question: str = Field(min_length=1, description="Question to answer from the indexed documents")
     top_k: int | None = Field(default=None, ge=1, le=20, description="Override the number of retrieved chunks")

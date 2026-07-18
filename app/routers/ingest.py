@@ -7,7 +7,12 @@ from fastapi import APIRouter, HTTPException, UploadFile
 
 from app import vectorstore
 from app.ingestion import SUPPORTED_EXTENSIONS, ingest_file
-from app.schemas import DocumentsResponse, IngestResponse
+from app.schemas import (
+    DocumentsResponse,
+    DriveIngestRequest,
+    DriveIngestResponse,
+    IngestResponse,
+)
 
 router = APIRouter(tags=["ingestion"])
 
@@ -35,6 +40,28 @@ async def ingest(file: UploadFile) -> IngestResponse:
 
     added = vectorstore.add_documents(chunks)
     return IngestResponse(filename=filename, chunks_added=added)
+
+
+@router.post("/ingest/drive", response_model=DriveIngestResponse)
+def ingest_drive(request: DriveIngestRequest) -> DriveIngestResponse:
+    """Index all supported files from a shared Google Drive folder.
+
+    Requires GOOGLE_SERVICE_ACCOUNT_FILE and the folder shared with the
+    service account's e-mail (see README).
+    """
+    from app.sources.gdrive import ingest_drive_folder
+
+    try:
+        ingested, skipped = ingest_drive_folder(request.folder_id)
+    except RuntimeError as exc:  # missing/invalid configuration
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:  # Google API errors (bad folder id, no access, ...)
+        raise HTTPException(status_code=502, detail=f"Google Drive error: {exc}") from exc
+
+    return DriveIngestResponse(
+        ingested=[IngestResponse(filename=name, chunks_added=n) for name, n in ingested],
+        skipped=skipped,
+    )
 
 
 @router.get("/documents", response_model=DocumentsResponse)

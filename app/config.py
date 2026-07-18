@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     chroma_persist_dir: str = "./chroma_data"
     chroma_collection: str = "documents"
 
+    # Google Drive ingestion (optional; service account key JSON)
+    google_service_account_file: str = ""
+
 
 @lru_cache
 def get_settings() -> Settings:
